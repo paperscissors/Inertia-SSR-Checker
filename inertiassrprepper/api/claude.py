@@ -71,7 +71,7 @@ def get_solution_from_claude(
         """
         
         # Adjust model and parameters based on issue severity
-        model = "claude-3-7-sonnet-20240229"
+        model = "claude-3-7-sonnet-20250219"
         max_tokens = 400 if severity in ["critical", "major"] else 300
         temperature = 0.1
         

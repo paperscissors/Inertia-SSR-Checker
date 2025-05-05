@@ -44,4 +44,6 @@ venv.bak/
 # OS specific
 .DS_Store
 Thumbs.db
-EOF < /dev/null
+
+# Claude assistant notes
+CLAUDE.md

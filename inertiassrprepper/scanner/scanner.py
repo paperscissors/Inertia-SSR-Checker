@@ -154,6 +154,7 @@ class LaravelInertiaScanner:
             "public/",
             "storage/",
             "bootstrap/cache/",
+            "**/bootstrap/ssr/assets/**",
             
             # Admin panel directories
             "**/nova/**",
@@ -181,6 +182,14 @@ class LaravelInertiaScanner:
             "**/.next/**",
             "**/build/**",
             "**/compiled/**",
+            "**/public/js/**",
+            "**/public/css/**",
+            "**/public/build/**",
+            "**/public/hot/**",
+            "**/hot/**",
+            "**/cache/**",
+            "**/.vite/**",
+            "**/coverage/**",
             
             # Database and test files
             "**/migrations/**",
@@ -188,6 +197,8 @@ class LaravelInertiaScanner:
             "**/tests/**",
             "**/testing/**",
             "**/__tests__/**",
+            "**/stubs/**",
+            "**/mocks/**",
         ]
         
         # Combine with user provided patterns
@@ -413,10 +424,23 @@ class LaravelInertiaScanner:
                         match_found = True
                     else:
                         match_found = False
+                        
+                    # If there's a negative pattern and it matches, then this is NOT an issue
+                    if match_found and 'negative_pattern' in pattern:
+                        if re.search(pattern['negative_pattern'], line):
+                            match_found = False
                 except re.error:
                     # If regex is too complex or has errors, fall back to simpler substring search
                     simple_terms = pattern.get('simple_terms', [])
                     match_found = any(term in line for term in simple_terms) if simple_terms else False
+                    
+                    # If there's a negative pattern and using simple terms, check negative match
+                    if match_found and 'negative_pattern' in pattern:
+                        try:
+                            if re.search(pattern['negative_pattern'], line):
+                                match_found = False
+                        except re.error:
+                            pass
                 
                 if match_found:
                     # Get context lines (up to 3 lines before and after)

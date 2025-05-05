@@ -145,10 +145,12 @@ SSR_ISSUE_PATTERNS = [
     # Missing or incorrect key on list items
     {
         'type': 'List Keys',
-        'pattern': r'v-for\s*=\s*[\'"][^\'"]+(in|of)[^\'"]+[\'"](?!\s*[^>]*?:key|\s*[^>]*?\s+key=)',
+        'pattern': r'<\w+[^>]*v-for\s*=\s*[\'"][^\'"]+(in|of)[^\'"]+[\'"][^>]*?>',
+        'simple_terms': ['v-for='],
         'file_extensions': ['.vue'],
         'message': 'Missing key attribute on v-for can cause hydration errors in SSR',
-        'solution': 'Add a unique :key attribute to each v-for item: <div v-for="item in items" :key="item.id">'
+        'solution': 'Add a unique :key attribute to each v-for item: <div v-for="item in items" :key="item.id">',
+        'negative_pattern': r':key\s*=|v-bind:key\s*='
     },
     
     # Direct access to Inertia props 

@@ -147,12 +147,31 @@ class LaravelInertiaScanner:
         
         # Default ignore patterns
         default_ignore = [
+            # Base directories to ignore
             ".git/",
             "node_modules/",
             "vendor/",
             "public/",
             "storage/",
             "bootstrap/cache/",
+            
+            # Admin panel directories
+            "**/nova/**",
+            "**/filament/**", 
+            "**/backpack/**",
+            "**/orchid/**",
+            "**/horizon/**",
+            "**/telescope/**",
+            "**/jetstream/**",
+            "**/breeze/**",
+            "**/spark/**",
+            "**/vapor/**",
+            "**/livewire/**",
+            "**/enso/**",
+            "**/admin/**",
+            "**/dashboard/**",
+            
+            # Build/compiled assets
             "**.map",
             "**.min.js",
             "**.min.css",
@@ -162,6 +181,13 @@ class LaravelInertiaScanner:
             "**/.next/**",
             "**/build/**",
             "**/compiled/**",
+            
+            # Database and test files
+            "**/migrations/**",
+            "**/database/seeders/**",
+            "**/tests/**",
+            "**/testing/**",
+            "**/__tests__/**",
         ]
         
         # Combine with user provided patterns

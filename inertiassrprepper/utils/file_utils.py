@@ -10,8 +10,15 @@ mimetypes.init()
 
 # Text file extensions to consider
 TEXT_EXTENSIONS = {
-    '.js', '.jsx', '.ts', '.tsx', '.vue', '.php', '.blade.php', '.html', '.htm',
-    '.css', '.scss', '.sass', '.less', '.json', '.md', '.txt', '.env', '.config',
+    '.js', '.jsx', '.ts', '.tsx', '.vue', '.blade.php', '.html', '.htm',
+    '.css', '.scss', '.sass', '.less',
+}
+
+# Text file extensions to explicitly ignore
+IGNORED_EXTENSIONS = {
+    '.txt', '.json', '.sql', '.md', '.csv', '.xml', '.yaml', '.yml', '.toml', 
+    '.config', '.lock', '.env', '.example', '.gitignore', '.prettierrc', '.eslintrc',
+    '.babelrc', '.editorconfig', '.htaccess', '.log', '.sh', '.bat', '.ps1', '.py',
 }
 
 # File types for categorization
@@ -25,25 +32,31 @@ FILE_TYPES = {
 
 def is_text_file(file_path: Path) -> bool:
     """
-    Check if a file is a text file
+    Check if a file is a text file we should scan for SSR issues
     """
-    # Check by extension first
-    ext = ''.join(file_path.suffixes)  # Handle multiple extensions like .blade.php
-    if ext.lower() in TEXT_EXTENSIONS:
-        return True
-    
-    # Check by mime type
-    mime_type, _ = mimetypes.guess_type(str(file_path))
-    if mime_type and mime_type.startswith('text/'):
-        return True
-    
-    # Try to open and read a bit of the file
-    try:
-        with open(file_path, 'r', encoding='utf-8') as f:
-            f.read(512)  # Try to read some of the file
-        return True
-    except (UnicodeDecodeError, IOError):
+    # Skip files that start with a dot (e.g. .gitignore, .env)
+    if file_path.name.startswith('.'):
         return False
+        
+    # Handle multiple extensions like .blade.php
+    ext = ''.join(file_path.suffixes).lower()
+    
+    # First check if it's a file type we explicitly want to include
+    if ext in TEXT_EXTENSIONS:
+        return True
+    
+    # Special handling for PHP files:
+    # - Include .blade.php (which should be in TEXT_EXTENSIONS)
+    # - Exclude regular .php files
+    if ext == '.php':
+        return False
+        
+    # Skip explicitly ignored extensions
+    if ext in IGNORED_EXTENSIONS:
+        return False
+    
+    # Skip files that don't have explicit extension approval
+    return False
         
 def get_file_type(file_path: Path) -> str:
     """

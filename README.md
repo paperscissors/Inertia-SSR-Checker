@@ -1,8 +1,32 @@
 # InertiaSSRPrepper
 
+![PyPI](https://img.shields.io/pypi/v/inertiassrprepper)
+![Python](https://img.shields.io/pypi/pyversions/inertiassrprepper)
+![License](https://img.shields.io/pypi/l/inertiassrprepper)
+![Downloads](https://img.shields.io/pypi/dm/inertiassrprepper)
+
 A modern Python CLI tool that scans Laravel applications using Inertia.js and Vue 3 to identify potential Server-Side Rendering (SSR) compatibility issues.
 
-## Features
+<p align="center">
+  <img src="https://raw.githubusercontent.com/yourusername/inertiassrprepper/main/docs/images/demo.gif" alt="InertiaSSRPrepper Demo" width="700">
+</p>
+
+## 📋 Table of Contents
+
+- [✨ Features](#-features)
+- [💡 Why InertiaSSRPrepper?](#-why-inertiassrprepper)
+- [🚀 Installation](#-installation)
+- [🏃‍♂️ Quick Start](#️-quick-start)
+- [📊 Examples](#-examples)
+- [📘 Usage](#-usage)
+- [🔍 Issue Categories](#-issue-categories)
+- [📤 Output Formats](#-output-formats)
+- [🛠️ Development](#️-development)
+- [🤝 Contributing](#-contributing)
+- [📄 License](#-license)
+- [🙏 Acknowledgements](#-acknowledgements)
+
+## ✨ Features
 
 - 🔍 Scans your entire Laravel + Inertia.js + Vue 3 codebase for SSR compatibility issues
 - 🚫 Identifies 25+ common SSR problems with detailed pattern matching
@@ -13,7 +37,17 @@ A modern Python CLI tool that scans Laravel applications using Inertia.js and Vu
 - 🔧 Customizable ignore patterns and detection rules
 - 🔍 Supports interactive search and filtering in HTML reports
 
-## Installation
+## 💡 Why InertiaSSRPrepper?
+
+Implementing Server-Side Rendering in an existing Laravel Inertia.js application can be challenging due to numerous client-side dependencies and browser-specific code patterns. InertiaSSRPrepper helps you:
+
+- **Identify SSR issues before they break your production app** - Catch all potential SSR problems early
+- **Save hours of debugging time** - Automatically find issues that would take days to discover manually
+- **Get expert solutions** - Receive AI-powered suggestions for fixing each issue
+- **Plan your SSR migration** - Prioritize fixes based on severity
+- **Improve overall code quality** - Many SSR issues are also general best practices problems
+
+## 🚀 Installation
 
 ### Using pip
 
@@ -45,23 +79,45 @@ uv pip install -e .
 pip install -e .
 ```
 
-## Usage
+## 🏃‍♂️ Quick Start
 
-### Basic usage
+Scan your Laravel Inertia.js application in just one step:
 
 ```bash
+# Basic scan with terminal output
 inertiassr scan /path/to/your/laravel/app
+
+# Generate HTML report with Claude AI suggestions
+inertiassr scan /path/to/your/laravel/app --output report.html --api-key $ANTHROPIC_API_KEY
 ```
 
-### With additional options
+## 📊 Examples
+
+### Generate HTML Report
 
 ```bash
-inertiassr scan /path/to/your/laravel/app \
-  --api-key your-anthropic-api-key \
-  --output report.html \
-  --ignore "*.test.js,*.spec.js" \
-  --verbose
+inertiassr scan /path/to/app --output report.html --api-key your-anthropic-key
 ```
+
+### Generate JSON Report
+
+```bash
+inertiassr scan /path/to/app --output report.json
+```
+
+### Scan with Custom Ignore Patterns
+
+```bash
+inertiassr scan /path/to/app --ignore "*.test.js,*.spec.js,legacy/*"
+```
+
+### Scan with Verbose Output
+
+```bash
+inertiassr scan /path/to/app --verbose
+```
+
+## 📘 Usage
 
 ### Command-line Options
 
@@ -77,11 +133,14 @@ inertiassr scan /path/to/your/laravel/app \
 | `--max-files` | Maximum number of files to scan (for testing) |
 | `--version` | Show version information and exit |
 
-## Environment Variables
+### Environment Variables
 
 - `ANTHROPIC_API_KEY`: Your Anthropic API key for Claude integration
 
-## Issue Categories
+## 🔍 Issue Categories
+
+<details>
+<summary>Click to expand issue categories</summary>
 
 Issues are categorized by severity to help you prioritize fixes:
 
@@ -91,8 +150,6 @@ Issues are categorized by severity to help you prioritize fixes:
 | Major | Issues likely to cause SSR rendering failures |
 | Medium | Issues that may cause inconsistent SSR behavior |
 | Minor | Issues that could cause subtle differences between SSR and client rendering |
-
-## Common SSR Issues Detected
 
 ### Critical Issues
 - Browser API usage (`window`, `document`, `navigator`, etc.)
@@ -119,7 +176,9 @@ Issues are categorized by severity to help you prioritize fixes:
 - Inline scripts in templates
 - Third-party script tags
 
-## Output Formats
+</details>
+
+## 📤 Output Formats
 
 ### Terminal Output
 - Colorful, interactive report in the terminal
@@ -140,33 +199,7 @@ Issues are categorized by severity to help you prioritize fixes:
 - Includes full issue details, file paths, line numbers, and solutions
 - Compatible with other tools and integrations
 
-## Examples
-
-### Generate HTML Report
-
-```bash
-inertiassr scan /path/to/app --output report.html --api-key your-anthropic-key
-```
-
-### Generate JSON Report
-
-```bash
-inertiassr scan /path/to/app --output report.json
-```
-
-### Scan with Custom Ignore Patterns
-
-```bash
-inertiassr scan /path/to/app --ignore "*.test.js,*.spec.js,legacy/*"
-```
-
-### Scan with Verbose Output
-
-```bash
-inertiassr scan /path/to/app --verbose
-```
-
-## Example Terminal Report
+### Example Terminal Report
 
 ```
 ╭─── SSR Compatibility Scan Summary ────────────────────────────────────╮
@@ -190,7 +223,36 @@ inertiassr scan /path/to/app --verbose
 ╰───────────────────────────────────────────────────────────────────────╯
 ```
 
-## Contributing
+## 🛠️ Development
+
+### Setup Development Environment
+
+```bash
+# Clone the repository
+git clone https://github.com/yourusername/inertiassrprepper.git
+cd inertiassrprepper
+
+# Create a virtual environment (recommended)
+python -m venv venv
+source venv/bin/activate  # On Windows: venv\Scripts\activate
+
+# Install development dependencies
+uv pip install -e ".[dev]"
+```
+
+### Running Tests
+
+```bash
+pytest
+```
+
+### Linting
+
+```bash
+ruff check
+```
+
+## 🤝 Contributing
 
 Contributions are welcome! Please feel free to submit a Pull Request.
 
@@ -200,11 +262,11 @@ Contributions are welcome! Please feel free to submit a Pull Request.
 4. Push to the branch (`git push origin feature/amazing-feature`)
 5. Open a Pull Request
 
-## License
+## 📄 License
 
-MIT
+This project is licensed under the MIT License - see the LICENSE file for details.
 
-## Acknowledgements
+## 🙏 Acknowledgements
 
 - [Laravel](https://laravel.com/)
 - [Inertia.js](https://inertiajs.com/)
@@ -212,3 +274,9 @@ MIT
 - [Anthropic Claude](https://www.anthropic.com/claude)
 - [Rich](https://github.com/Textualize/rich)
 - [Typer](https://github.com/tiangolo/typer)
+
+---
+
+<p align="center">
+  Made with ❤️ for the Laravel and Inertia.js community
+</p>

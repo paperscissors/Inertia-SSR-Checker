@@ -49,22 +49,6 @@ Implementing Server-Side Rendering in an existing Laravel Inertia.js application
 
 ## 🚀 Installation
 
-### Using pip
-
-```bash
-pip install inertiassrprepper
-```
-
-### Using uv (recommended)
-
-```bash
-# Install uv if not already installed
-curl -sSf https://install.python-utils.dev | python3 -
-
-# Install from PyPI
-uv pip install inertiassrprepper
-```
-
 ### From source
 
 ```bash

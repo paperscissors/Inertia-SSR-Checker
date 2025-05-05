@@ -255,6 +255,7 @@ SSR_ISSUE_CATEGORIES = {
     ],
     'major': [
         'Lifecycle Hook', 
+        'Lifecycle Hook Scope',
         'Vue Instance', 
         'Vue Mount',
         'Inertia Import',

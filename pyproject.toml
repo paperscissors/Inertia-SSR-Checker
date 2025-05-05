@@ -1,6 +1,6 @@
 [project]
 name = "inertiassrprepper"
-version = "0.2.1"
+version = "0.2.2"
 description = "CLI tool to identify SSR compatibility issues in Laravel Inertia Vue applications"
 readme = "README.md"
 requires-python = ">=3.12"

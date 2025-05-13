@@ -153,6 +153,7 @@ class LaravelInertiaScanner:
             "vendor/",
             "public/",
             "storage/",
+            "bootstrap/",
             "bootstrap/cache/",
             "**/bootstrap/ssr/assets/**",
             
